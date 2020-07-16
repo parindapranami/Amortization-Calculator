@@ -9,7 +9,6 @@ def total_interest(schedule):
 def amortization_schedule(P,r,n):
   payment = amortization_payment(P,r,n)
   #need to change these values
-  r = r/100
   period = 0
   balance = P
   schedule = []
@@ -23,7 +22,6 @@ def amortization_schedule(P,r,n):
   return schedule
 
 def amortization_payment(P,r,n):
-  r = r/ 100
   A = P*(r*((1 + r)**n) / (((1 + r)**n) - 1))
   return A
   
