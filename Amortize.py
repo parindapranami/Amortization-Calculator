@@ -11,7 +11,5 @@ parser.add_argument('-n','--n',type = int,help = 'Tenure')
 args = parser.parse_args()
 
 if __name__ == "__main__":
-  args.r = args.r / 1200
-  args.n = args.n * 12
-  print_schedule(args.P,args.r,args.n)
+  print_schedule(args.P,args.r /1200,args.n*12)
   
