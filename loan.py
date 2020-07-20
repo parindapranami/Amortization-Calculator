@@ -48,26 +48,26 @@ class Loan:
   def amortization_schedule(self):
     #need to change these values
     # payment = self.payment
-    # amount = self.principal
+    amount = self.principal
     # interest = self.rate 
     # tenure = self.numberOfPeriods
     period = 0
-    balance =   self.principal
+    balance =   amount
     schedule = []
     while period < self.numberOfPeriods:
       monthly_interest = balance * self.rate
-      self.principal =  self.payment - monthly_interest
+      amount =  self.payment - monthly_interest
       #P = self.payment - monthly_interest
       #amount = payment - monthly_interest
-      balance = balance - self.principal
+      balance = balance - amount
       period+=1
-      schedule_dict = dict(Period=period,Interest=monthly_interest,Principal=self.principal,Balance=balance)
+      schedule_dict = dict(Period=period,Interest=monthly_interest,Principal=amount,Balance=balance)
       schedule.append(schedule_dict) 
     return schedule
 
   
   
-  def print_schedule(self,P):
+  def print_schedule(self):
     #payment = self.payment
     print(" ")
     print("Your monthly Amortization payment is: $ {:.2f}".format(self.payment))
@@ -86,8 +86,8 @@ class Loan:
   
     final_interest = self.total_interest(self.schedule)
     print("\nYou have paid a total interest of $ {:.2f}".format(final_interest))
-    print("\nYou have successfully returned a principal of : $ {:.2f}".format(P))
+    print("\nYou have successfully returned a principal of : $ {:.2f}".format(self.principal))
 
 
 
-#print(loan.print_schedule(165000))
+#print(loan.print_schedule())
