@@ -49,9 +49,9 @@ class Loan:
       balance = balance - amount
       period+=1
       total_interest += monthly_interest
-      self.total_interest = total_interest
       schedule_dict = dict(Period=period,Interest=monthly_interest,Principal=amount,Balance=balance)
       schedule.append(schedule_dict) 
+      self.total_interest = total_interest
     return schedule
 
   def print_schedule(self):
