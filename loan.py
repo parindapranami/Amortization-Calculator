@@ -31,8 +31,8 @@ class Loan:
 
   def __init__(self,P,r,n):
     self.principal = P
-    self.rate = r / 1200
-    self.numberOfPeriods = n * 12
+    self.rate = r 
+    self.numberOfPeriods = n 
     self.payment = self.principal*(self.rate*((1 + self.rate)**self.numberOfPeriods) / (((1 + self.rate)**self.numberOfPeriods) - 1))
     self.schedule = self.amortization_schedule()
     #self.paymentPerPeriod = amortization_payment(self)
