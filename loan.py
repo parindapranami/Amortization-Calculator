@@ -31,39 +31,43 @@ class Loan:
 
   def __init__(self,P,r,n):
     self.principal = P
-    self.rate = r
-    self.numberOfPeriods = n
+    self.rate = r / 1200
+    self.numberOfPeriods = n * 12
     self.payment = self.principal*(self.rate*((1 + self.rate)**self.numberOfPeriods) / (((1 + self.rate)**self.numberOfPeriods) - 1))
+    self.schedule = self.amortization_schedule()
     #self.paymentPerPeriod = amortization_payment(self)
     # self.generateAmortizationSchedule =amortization_schedule(P,r,n)
     # schedule = self.generateAmortizationSchedule 
 
-  # def total_interest(schedule):
-  #   interest = 0.0
-  #   for dictionary in schedule:
-  #     interest += float(dictionary['Interest'])
-  #   return interest
+  def total_interest(self,schedule):
+    interest = 0.0
+    for dictionary in schedule:
+      interest += float(dictionary['Interest'])
+    return interest
 
   def amortization_schedule(self):
-    #payment = self.payment
     #need to change these values
+    # payment = self.payment
+    # amount = self.principal
+    # interest = self.rate 
+    # tenure = self.numberOfPeriods
     period = 0
-    balance = self.principal
+    balance =   self.principal
     schedule = []
     while period < self.numberOfPeriods:
       monthly_interest = balance * self.rate
       self.principal =  self.payment - monthly_interest
+      #P = self.payment - monthly_interest
+      #amount = payment - monthly_interest
       balance = balance - self.principal
       period+=1
       schedule_dict = dict(Period=period,Interest=monthly_interest,Principal=self.principal,Balance=balance)
       schedule.append(schedule_dict) 
     return schedule
 
-  # def amortization_payment(self):
-  #   A = self.principal*(self.rate*((1 + self.rate)**self.numberOfPeriods) / (((1 + self.rate)**self.numberOfPeriods) - 1))
-  #   return A
   
-  def print_schedule(self):
+  
+  def print_schedule(self,P):
     #payment = self.payment
     print(" ")
     print("Your monthly Amortization payment is: $ {:.2f}".format(self.payment))
@@ -71,8 +75,8 @@ class Loan:
     print("Following is the Amortization Schedule\n")
     print("Period no.\t  Interest\t Principal\tBalance Amount")
     print("--------------------------------------------------------------------------")
-    final_schedule = self.amortization_schedule()
-    for entry in final_schedule:
+    #final_schedule = self.amortization_schedule(P,r,n)
+    for entry in self.schedule: #final_schedule:
       interest = entry["Interest"]
       principal = entry["Principal"]
       Period = entry["Period"]
@@ -80,11 +84,10 @@ class Loan:
       each_row = "{:.0f}\t\t $  {:.2f}\t $  {:.2f}\t $  {:.2f}"
       print(each_row.format(Period,interest,principal,balance))
   
-    # final_interest = total_interest(final_schedule)
-    # print("\nYou have paid a total interest of $ {:.2f}".format(final_interest))
-    # print("\nYou have successfully returned a principal of : $ {:.2f}".format(self.principal))
+    final_interest = self.total_interest(self.schedule)
+    print("\nYou have paid a total interest of $ {:.2f}".format(final_interest))
+    print("\nYou have successfully returned a principal of : $ {:.2f}".format(P))
 
 
 loan = Loan(165000,4.5,30) 
-
-print(loan.print_schedule())
+print(loan.print_schedule(165000))
