@@ -89,6 +89,5 @@ class Loan:
     print("\nYou have successfully returned a principal of : $ {:.2f}".format(P))
 
 
-loan = Loan(165000,4.5,30) 
 
 #print(loan.print_schedule(165000))

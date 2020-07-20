@@ -11,5 +11,6 @@ parser.add_argument('-n','--n',type = int,help = 'Tenure')
 args = parser.parse_args()
 
 if __name__ == "__main__":
+  loan = Loan(args.P,args.r,args.n) 
   print(loan.print_schedule(args.P))
   
