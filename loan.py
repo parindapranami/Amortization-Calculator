@@ -37,7 +37,6 @@ class Loan:
     self.schedule = self.amortization_schedule()
     
   def amortization_schedule(self):
-  
     amount = self.principal
     period = 0
     balance =   amount
@@ -51,7 +50,7 @@ class Loan:
       total_interest += monthly_interest
       schedule_dict = dict(Period=period,Interest=monthly_interest,Principal=amount,Balance=balance)
       schedule.append(schedule_dict) 
-      self.total_interest = total_interest
+    self.total_interest = total_interest
     return schedule
 
   def print_schedule(self):
