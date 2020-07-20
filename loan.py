@@ -90,4 +90,5 @@ class Loan:
 
 
 loan = Loan(165000,4.5,30) 
-print(loan.print_schedule(165000))
+
+#print(loan.print_schedule(165000))
