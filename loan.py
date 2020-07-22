@@ -19,8 +19,6 @@ class Loan:
     while period < self.numberOfPeriods:
       monthly_interest = balance * self.rate
       amount =  self.payment - monthly_interest
-      if balance < amount:
-        print("error")
       balance = balance - amount
       period+=1
       total_interest += monthly_interest
