@@ -1,12 +1,12 @@
 class Loan:
-
+  
   def __init__(self,P,r,n):
+    assert P > 0,"Principal can't be negative"
+    assert r > 0,"Rate of Interest can't be negative"
+    assert n > 0,"Tenure can't be negative"
     self.principal = P
-    assert self.principal > 0,"Principal can't be negative"
     self.rate = r 
-    assert self.rate > 0,"Rate of Interest can't be negative"
     self.numberOfPeriods = n 
-    assert self.numberOfPeriods > 0,"Tenure can't be negative"
     self.payment = self.principal*(self.rate*((1 + self.rate)**self.numberOfPeriods) / (((1 + self.rate)**self.numberOfPeriods) - 1))
     self.schedule = self.amortization_schedule()
     
