@@ -2,10 +2,12 @@ class Loan:
 
   def __init__(self,P,r,n):
     self.principal = P
+    assert self.principal > 0,"Principal can't be negative"
     self.rate = r 
+    assert self.rate > 0,"Rate of Interest can't be negative"
     self.numberOfPeriods = n 
+    assert self.numberOfPeriods > 0,"Tenure can't be negative"
     self.payment = self.principal*(self.rate*((1 + self.rate)**self.numberOfPeriods) / (((1 + self.rate)**self.numberOfPeriods) - 1))
-    assert self.payment > 0,"Monthly Amortization payment cannot be negative"
     self.schedule = self.amortization_schedule()
     
   def amortization_schedule(self):
@@ -16,17 +18,15 @@ class Loan:
     total_interest = 0
     while period < self.numberOfPeriods:
       monthly_interest = balance * self.rate
-      assert monthly_interest > 0,"Interest should be a positive number"
       amount =  self.payment - monthly_interest
-      assert amount > 0,"Amount should be a positive number"
+      if balance < amount:
+        print("error")
       balance = balance - amount
-      #assert balance > 0,"Balance should be a positive number"
       period+=1
       total_interest += monthly_interest
       schedule_dict = dict(Period=period,Interest=monthly_interest,Principal=amount,Balance=balance)
       schedule.append(schedule_dict) 
     self.total_interest = total_interest
-    assert self.total_interest > 0,"""Total interest can't be negative"""
     return schedule
 
   def print_schedule(self):
