@@ -1,9 +1,11 @@
 from datetime import date
+from datetime import datetime
 from dateutil.relativedelta import relativedelta
+
 
 class Loan:
   
-  def __init__(self,P,r,n):
+  def __init__(self,P,r,n,d):
     assert P > 0,"Principal can't be negative"
     assert r > 0,"Rate of Interest can't be negative"
     assert n > 0,"Tenure can't be negative"
@@ -11,26 +13,28 @@ class Loan:
     self.rate = r 
     self.numberOfPeriods = n 
     self.payment = self.principal*(self.rate*((1 + self.rate)**self.numberOfPeriods) / (((1 + self.rate)**self.numberOfPeriods) - 1))
+    self.startDate =  datetime.strptime(d, "%Y-%m-%d")  
     self.schedule = self.amortization_schedule()
     
 
 
   def amortization_schedule(self):
     amount = self.principal
-    period = 0
+    period = 0 
     balance =   amount
     schedule = []
     total_interest = 0
-    monthly_date = date.today() + relativedelta(months=1)
+    #monthly_date = date.today() + relativedelta(months=1)
+    monthly_date = self.startDate
     while period < self.numberOfPeriods:
       monthly_interest = balance * self.rate
       amount =  self.payment - monthly_interest
       balance = balance - amount
       period+=1
       total_interest += monthly_interest 
-      schedule_dict = dict(Period=period,Date=monthly_date,Interest=monthly_interest,Principal=amount,Balance=balance)
+      schedule_dict = dict(Period=period,Date=monthly_date,Interest=monthly_interest,Principal=amount,Balance=balance) #class amortization period
       schedule.append(schedule_dict) 
-      monthly_date +=relativedelta(months=1)
+      monthly_date += relativedelta(months=1)
     self.total_interest = total_interest
     return schedule
 
@@ -47,7 +51,7 @@ class Loan:
       Period = entry["Period"]
       balance = entry["Balance"]
       startDate = entry["Date"]
-      each_row = "{:.0f} \t    {}\t\t $  {:.2f}\t $  {:.2f}\t $  {:.2f}"
+      each_row = "{:.0f} \t    {}\t  $  {:.2f}\t $  {:.2f}\t $  {:.2f}"
       print(each_row.format(Period,startDate,interest,principal,balance))
     print("\nYou have paid a total interest of $ {:.2f}".format(self.total_interest))
     print("\nYou have successfully returned a principal of : $ {:.2f}".format(self.principal))
