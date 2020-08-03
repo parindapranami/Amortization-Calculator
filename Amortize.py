@@ -15,12 +15,12 @@ args = parser.parse_args()
 
 if __name__ == "__main__":
   if args.d:
-    args.d =  datetime.strptime(args.d, "%Y-%m-%d")
-    args.d = date(args.d.year , args.d.month , 1)
+    inputDate =  datetime.strptime(args.d, "%Y-%m-%d")
+    inputDate = date(inputDate.year , inputDate.month , 1)
   else :
-    args.d = date.today() + relativedelta(months=1)
-    args.d = args.d.replace(day = 1)
-  
+    inputDate = date.today() + relativedelta(months=1)
+    inputDate = inputDate.replace(day = 1)
+  args.d = inputDate
   loan = Loan(args.P,args.r/1200,args.n*12,args.d) 
   print(loan.print_schedule())
  

@@ -4,6 +4,16 @@ from datetime import date
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
+class AmortizationPeriod :
+
+  def __init__(self):#self,monthly_interest,amount,balance,period,monthly_date):
+    # self.period = period
+    # self.date = monthly_date
+    # self.interest = monthly_interest
+    # self.principal = amount
+    # self.balance = balance
+    pass
+    
 
 class Loan:
   
@@ -32,8 +42,14 @@ class Loan:
       balance = balance - amount
       period+=1
       total_interest += monthly_interest 
-      schedule_dict = dict(Period=period,Date=monthly_date,Interest=monthly_interest,Principal=amount,Balance=balance) #class amortization period
-      schedule.append(schedule_dict) 
+      ap = AmortizationPeriod()
+      #schedule_dict = dict(Period=period,Date=monthly_date,Interest=monthly_interest,Principal=amount,Balance=balance) #class amortization period
+      ap.period = period
+      ap.date = monthly_date
+      ap.interest = monthly_interest
+      ap.principal = amount
+      ap.balance = balance
+      schedule.append(ap) 
       monthly_date += relativedelta(months=1)
     self.total_interest = total_interest
     return schedule
@@ -46,12 +62,9 @@ class Loan:
     print("Period no.  Start date\t    Interest\t   Principal\tBalance Amount")
     print("-----------------------------------------------------------------------------")
     for entry in self.schedule: 
-      interest = entry["Interest"]
-      principal = entry["Principal"]
-      Period = entry["Period"]
-      balance = entry["Balance"]
-      startDate = entry["Date"]
       each_row = "{:.0f} \t    {}-{}-{}\t  $  {:.2f}\t $  {:.2f}\t $  {:.2f}"
-      print(each_row.format(Period,startDate.year,startDate.month,startDate.day,interest,principal,balance))
+      # print(each_row.format(Period,startDate.year,startDate.month,startDate.day,interest,principal,balance))
+      print(each_row.format(entry.period,entry.date.year,entry.date.month,entry.date.day,entry.interest,entry.principal,entry.balance))
     print("\nYou have paid a total interest of $ {:.2f}".format(self.total_interest))
     print("\nYou have successfully returned a principal of : $ {:.2f}".format(self.principal))
+
